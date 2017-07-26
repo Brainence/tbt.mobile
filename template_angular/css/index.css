@@ -36,12 +36,11 @@ body {
         color-stop(0.51, #E4E4E4)
     );
     background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
+    font-family: sans-serif;
+    font-size:14px !important;
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
     width:100%;
 }
 
@@ -112,4 +111,114 @@ h1 {
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
+}
+
+
+
+
+p, span {
+    margin: 0px !important;
+    text-shadow: none;
+}
+
+.authorization-content {
+    display: table-cell; 
+    min-width: 100vw; 
+    height: 100vh; 
+    text-align: center; 
+    vertical-align: middle;
+    margin-bottom: 10%;
+}
+
+.authorization-content .body{
+    display: block;
+    text-align: left;
+}
+
+[data-role="content"]{
+    min-height: 100vh;
+    background-image: radial-gradient(circle at -2% -2%, #e8711f, #c2422a 41%, #c1412b);
+    padding: 10px !important;
+}
+
+.checkbox {
+    display: flex !important;
+    align-items: center;
+}
+
+input[type='checkbox'] {
+    margin: 0px !important;
+    left: 0px !important;
+    position: relative !important;
+}
+
+.ui-checkbox{
+    margin:0px !important;
+    display: inherit !important;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
+
+.header-user {
+    display: flex;
+}
+
+.header p {
+    font-size: 20px;
+    color: #fff;
+}
+
+.body {
+    background: #fff;
+    padding: 16px;
+}
+
+
+.ui-select, .ui-input-text {
+    margin: 0px 0px 15px 0px !important;
+}
+
+.ui-select div {
+    padding: 4px 0px !important;
+    border-radius: 0px !important;
+    border: none;
+    border-bottom: solid 1px #979797 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.ui-input-text {
+    border-radius: 0px !important;
+    border: none !important;
+    border-bottom: solid 1px #979797 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.ui-select span, select option{
+    font-size: 14px;
+    color: #c5452a;
+    text-align: left;
+    font-weight: bold !important;
+}
+
+.ui-input-text input {
+    padding: 0px !important;
+    min-height: 1em !important;
+    font-size: 14px !important;
+    color: #c5452a !important;
+    font-weight: bold !important;
+    text-shadow: none !important;
+}
+
+button {
+    background-image: linear-gradient(9deg, #c1422b, #e16821);
+    text-shadow: none !important;
+    color: #fff !important;
+    box-shadow: none !important;
 }

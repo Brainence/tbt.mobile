@@ -6,7 +6,7 @@
         <meta name="viewport"
               content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <meta name="msapplication-tap-highlight" content="no" />
-        <title>Hello World</title>
+        <title>TimeBookingTool</title>
 
         <!--styles-->
         <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -19,53 +19,67 @@
         <script type="text/javascript" src="libraries/jquery/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="libraries/jquery/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/globalvariables.js"></script>
         <script type="text/javascript" src="libraries/angular.min.js"></script>
 
         <!--scripts-->
     </head>
     <body>
-        <div ng-app="templateApp" ng-controller="TemplateCtrl">
-            <!-- This page will show first -->
-            <div data-role="page" id="index">
-
-                <div data-role="header" data-position="inline" id="indexheader" >
-                    <h1>Page 1 Heading</h1>
-                </div><!-- /header -->
-
+        <div ng-app="tbtApp">
+            <!-- Authorization page -->
+            <div data-role="page" id="authorization-page" ng-controller="AuthorizationCtrl">
+                <div data-role="content" class="authorization-content">
+                    <div class="body">
+                        <span>Username </span> <input type="text" ng-model="username"/>
+                        <span>Password </span> <input type="password" ng-model="password" />
+                        <div class="checkbox"><input type="checkbox" ng-model="rememberMe" value="Remember Me" /><span>Remember me</span></div>
+                        <button ng-click="authorization()">Log in</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calendar page -->
+            <div data-role="page" id="calendar-page" ng-controller="CalendarCtrl">
                 <div data-role="content">
-                    <h3>page Content</h3>
-                    <a href="#pagetwo">Second Page</a>
-                </div><!-- /content -->
-
-                <div data-role="footer"  data-position="fixed">
-                    <h3>Footer Text</h3>
-                </div><!-- /footer -->
-            </div><!-- /footer -->
-
-            <!-- SECOND PAGE -->
-            <div data-role="page" id="pagetwo">
-
-                <div data-role="header" data-position="inline" id="page2header" >
-                    <h1>Page 2 Heading</h1>
-                </div><!-- /header -->
-
+                    <div class="header">
+                        <div class="header-user">
+                            <img src="img/user.png"/>
+                            <p>{{user.FirstName}} {{user.LastName}}</p>
+                        </div>
+                        <img src="img/menu.png"/>
+                    </div>
+                    <div class="body">
+                        <span>Project:</span>
+                        <select id="listProjects" ng-model="selectedProjectValue" ng-change="selectProject()">
+                          <option value="{{project.Name}}" ng-repeat="project in user.Projects">{{project.Name}}</option>
+                        </select>
+                        
+                        <span>Task:</span>
+                        <select id="listTasks" ng-model="selectedActivityValue">
+                          <option value="{{activity.Name}}" ng-repeat="activity in selectedProject.Activities">{{activity.Name}}</option>
+                        </select>       
+                        
+                        <span>Time:</span>
+                            <input type="text" name="time" ng-model="timeValue"/>
+                        
+                        <span>Comment:</span>
+                            <input type="text" name="comment" ng-model="commentValue"/>
+                        
+                        <button ng-click="addTimeEntry()">Create</button>
+                        
+                        <ul>
+                            <li ng-repeat="timeEntry in timeEntries">
+                                <p>{{timeEntry.Comment}} {{timeEntry.Duration}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reporting page -->
+            <div data-role="page" id="reporting-page">
                 <div data-role="content">
-                    <h3>page Content</h3>   
-                    <form role="form" method="post" action="#">
-                        <div class="form-group form-group-lg">
-                            <label class="col-xs-2 control-label">Name</label>
-                            <div class="col-xs-12">
-                                <input type="text" class="form-control input-lg" name="name" ng-model="name" />
-                            </div>
-                        </div>
-                        <div class="col-xs-10">
-                            <h3>Hello {{name}}!</h3>
-                        </div>
-                    </form>
-                </div><!-- /content -->
-
-                <div data-role="footer"  data-position="fixed">
-                    <h3>Footer Text</h3>
+                    
                 </div>
             </div>
         </div>
@@ -73,8 +87,11 @@
         <script type="text/javascript">
             app.initialize();
         </script>
-        <!--page scripts-->
-        <script type="text/javascript" src="js/home/home.js"></script>
-        <!--page scripts-->
+        <script type="text/javascript" src="js/services/MainService.js"></script>
+        <script type="text/javascript" src="js/services/UserService.js"></script>
+        <script type="text/javascript" src="js/services/ResetTicketService.js"></script>
+        <script type="text/javascript" src="js/services/TimeEntryService.js"></script>
+        <script type="text/javascript" src="js/controllers/AuthorizationCtrl.js"></script>
+        <script type="text/javascript" src="js/controllers/CalendarCtrl.js"></script>
     </body>
 </html>
