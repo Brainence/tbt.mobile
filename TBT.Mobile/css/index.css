@@ -166,6 +166,12 @@ input[type='checkbox'] {
 
 .header-user {
     display: flex;
+    align-items: center;
+}
+
+.header-user img{
+    max-height: 24px;
+    margin-right: 5px;
 }
 
 .header p {
@@ -176,6 +182,7 @@ input[type='checkbox'] {
 .body {
     background: #fff;
     padding: 16px;
+    color: #c2422b;
 }
 
 
@@ -222,3 +229,36 @@ button {
     color: #fff !important;
     box-shadow: none !important;
 }
+
+
+.nomargin {
+    margin: 0px !important;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.timeEntry-item {
+    display: flex;
+    padding: 10px 0px;
+    font-weight: bold;
+}
+
+.timeEntry-item>img {
+    margin-right: 10px;
+    max-height: 65px;
+}
+
+.timeEntry-duration {
+    font-size: 1.5em;
+    padding-top: 2px;
+}
+
+.timeEntry-description {
+    font-size: 0.8em;
+}
+
+

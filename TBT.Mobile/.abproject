@@ -1,11 +1,11 @@
 {
-  "ProjectName": "template_angular",
+  "ProjectName": "TBT.Mobile",
   "ProjectGuid": "27a97719-a965-4a11-8f7d-8950b634ba16",
   "projectVersion": 1,
-  "AppIdentifier": "com.telerik.templateangular",
-  "DisplayName": "template_angular",
+  "AppIdentifier": "com.telerik.tbtmobile",
+  "DisplayName": "TBT.Mobile",
   "Author": "",
-  "Description": "template_angular",
+  "Description": "TBT.Mobile",
   "BundleVersion": "1.0",
   "AndroidVersionCode": "1",
   "iOSDeviceFamily": [
@@ -41,5 +41,6 @@
     "ID_RESOLUTION_WVGA",
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
-  ]
+  ],
+  "iOSDeploymentTarget": "6.0"
 }

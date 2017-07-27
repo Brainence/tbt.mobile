@@ -10,6 +10,7 @@
 
         <!--styles-->
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/calendar.css" />
         <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="libraries/jquery/jquery.mobile-1.4.5.min.css" />
         <!--styles-->
@@ -17,6 +18,7 @@
         <!--scripts-->
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="libraries/jquery/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="libraries/jquery/jquery-ui.min.js"></script>
         <script type="text/javascript" src="libraries/jquery/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/globalvariables.js"></script>
@@ -47,17 +49,36 @@
                             <p>{{user.FirstName}} {{user.LastName}}</p>
                         </div>
                         <img src="img/menu.png"/>
+                        
                     </div>
                     <div class="body">
+                        <div id="calendar">
+                            
+                            <ul style="display:flex;">
+                                <li class="calendar-item" ng-repeat="day in calendar" ng-click="selectDay($index)">
+                                    <p>{{day.numb}}</p>
+                                    <p>{{day.month | filterMonth}} | {{day.dayOfWeek | filterDayOfWeek}}</p>
+                                </li>
+                            </ul>
+                            <div id="calendarButton">
+                                <img src="img/calendar.png" ng-click="openCalendar()" id="calendarImage"/>
+                                <input type="text" id="calendarDate" disabled="disabled"/>
+                            </div>
+                            <!--<div class="calendar-item" >
+                                <p>{{currentDate.numb}}</p>
+                                <p>{{currentDate.month | filterMonth}} | {{currentDate.dayOfWeek | filterDayOfWeek}}</p>
+                            </div>-->
+                        </div>
+                        
                         <span>Project:</span>
                         <select id="listProjects" ng-model="selectedProjectValue" ng-change="selectProject()">
                           <option value="{{project.Name}}" ng-repeat="project in user.Projects">{{project.Name}}</option>
                         </select>
                         
                         <span>Task:</span>
-                        <select id="listTasks" ng-model="selectedActivityValue">
+                        <select id="listTasks">
                           <option value="{{activity.Name}}" ng-repeat="activity in selectedProject.Activities">{{activity.Name}}</option>
-                        </select>       
+                        </select> 
                         
                         <span>Time:</span>
                             <input type="text" name="time" ng-model="timeValue"/>
@@ -67,9 +88,18 @@
                         
                         <button ng-click="addTimeEntry()">Create</button>
                         
-                        <ul>
+                        <ul class="timeEntry-list nomargin">
                             <li ng-repeat="timeEntry in timeEntries">
-                                <p>{{timeEntry.Comment}} {{timeEntry.Duration}}</p>
+                                <div class="timeEntry-item">
+                                    <img src="img/Clock.png"/>
+                                    <div>
+                                        <img src="img/plus.png"/>
+                                        <img src="img/edit.png"/>
+                                        <img src="img/delete.png"/>
+                                        <p class="timeEntry-duration">{{timeEntry.Duration}}</p>
+                                        <p class="timeEntry-description">{{timeEntry.Activity.Project.Name}} | {{timeEntry.Activity.Name}}</p>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -87,6 +117,7 @@
         <script type="text/javascript">
             app.initialize();
         </script>
+        <script type="text/javascript" src="js/filters.js"></script>
         <script type="text/javascript" src="js/services/MainService.js"></script>
         <script type="text/javascript" src="js/services/UserService.js"></script>
         <script type="text/javascript" src="js/services/ResetTicketService.js"></script>
