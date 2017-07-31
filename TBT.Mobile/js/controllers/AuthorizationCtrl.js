@@ -5,7 +5,9 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
      $scope.username = "vmalanii@brainence.com";
      $scope.password = "brainence!";
      $scope.rememberMe = true;
-     SelectedDay = new Date();  //while calendar doesn't work
+     $scope.selectedProjectValue = '--Select project--';
+     $scope.selectedActivityValue = '&nbsp;';
+     SelectedDay = new Date();
      init();
      
      function init(){
@@ -30,7 +32,23 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
                         
                         TimeEntry.GetTodayTimeEntries(currentUser.Id).done(function (res) {
                             $rootScope.timeEntries = res;
+                            for(var i =0; i<$rootScope.timeEntries.length; i++)
+                                $rootScope.timeEntries[i].Duration = $rootScope.timeEntries[i].Duration.substr(0,8);
                             $rootScope.$apply();
+                            var notToday = SelectedDay.getDay() != new Date().getDay() || SelectedDay.getMonth() != new Date().getMonth() || SelectedDay.getFullYear() != new Date().getFullYear();
+                            if (!notToday)
+                            {
+                                for(var i =0; i<$rootScope.timeEntries.length; i++){
+                                    if($rootScope.timeEntries[i].IsRunning){
+                                        $('.timeEntry-duration').removeClass('timeEntry-duration-active');
+                                        $('.timeEntry-duration').each(function( index ) {
+                                            if(i == index)
+                                                $(this).addClass('timeEntry-duration-active');
+                                        });
+                                    }
+                                }
+                            } 
+                            
                             startTimer();
                             window.location.href = '#calendar-page';
                         });
@@ -62,7 +80,22 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
                         
                                 TimeEntry.GetTodayTimeEntries(currentUser.Id).done(function (res) {
                                     $rootScope.timeEntries = res;
+                                    for(var i =0; i<$rootScope.timeEntries.length; i++)
+                                        $rootScope.timeEntries[i].Duration = $rootScope.timeEntries[i].Duration.substr(0,8);
                                     $rootScope.$apply();
+                                    var notToday = SelectedDay.getDay() != new Date().getDay() || SelectedDay.getMonth() != new Date().getMonth() || SelectedDay.getFullYear() != new Date().getFullYear();
+                                    if (!notToday)
+                                    {
+                                        for(var i =0; i<$rootScope.timeEntries.length; i++){
+                                            if($rootScope.timeEntries[i].IsRunning){
+                                                $('.timeEntry-duration').removeClass('timeEntry-duration-active');
+                                                $('.timeEntry-duration').each(function( index ) {
+                                                    if(i == index)
+                                                        $(this).addClass('timeEntry-duration-active');
+                                                });
+                                            }
+                                        }
+                                    } 
                                     window.location.href = '#calendar-page';
                                 });
                             }

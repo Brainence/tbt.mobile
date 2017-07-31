@@ -10,10 +10,13 @@ angular.module('MainService', []).service('Main', function() {
     
     this.GetToken = function(email, password){
         return $.ajax({
-            url: 'http://localhost/tbt/token',
+            url: 'http://192.168.0.42/tbt/token',
             method: 'post',
             contentType: 'application/x-www-form-urlencoded',
             data: 'grant_type=password&UserName='+email+'&Password='+password
         });
     }
 });
+
+
+//192.168.0.42

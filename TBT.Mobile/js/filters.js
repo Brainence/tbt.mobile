@@ -1,5 +1,5 @@
 
-tbtApp = angular.module("tbtApp", ['MainService', 'UserService', 'ResetTicketService', 'TimeEntryService']);
+tbtApp = angular.module("tbtApp", ['MainService', 'UserService', 'ResetTicketService', 'TimeEntryService', 'ngTouch']);
 
 tbtApp.filter('filterDayOfWeek', function() {
     return function(x) {

@@ -159,3 +159,6 @@
 	background-color: #fff;
 	cursor: default;
 }
+.ui-datepicker-today {
+    background-color: #eee;
+}

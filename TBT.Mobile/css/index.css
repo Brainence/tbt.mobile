@@ -241,24 +241,54 @@ ul {
     padding: 0px;
 }
 
+.timeEntry-list li{
+    overflow:hidden;
+}
+
 .timeEntry-item {
     display: flex;
     padding: 10px 0px;
     font-weight: bold;
+    width: calc(100% + 145px);
 }
 
-.timeEntry-item>img {
+.timeEntry-block {
+    display: flex;
+    width: calc(100% - 145px);
+}
+
+.timeEntry-block>img {
     margin-right: 10px;
     max-height: 65px;
 }
 
-.timeEntry-duration {
-    font-size: 1.5em;
-    padding-top: 2px;
+.timeEntry-item>.edit-button, .timeEntry-item>.delete-button  {
+    text-align: center;
+    background-color: rgba(194, 66, 43, 0.7);
+    color: #fff;
+    width: 65px;
+    height: 65px;
+    display: table;
+    margin-left: 10px;
+}
+.timeEntry-item>.delete-button {
+    margin-left: 5px;    
+}
+
+.timeEntry-item>.edit-button p, .timeEntry-item>.delete-button p {
+    vertical-align: middle;
+    display: table-cell;   
 }
 
 .timeEntry-description {
     font-size: 0.8em;
 }
 
+.timeEntry-duration {
+    font-size: 1.5em;
+}
+
+.timeEntry-comment {
+    font-size: 1.1em;
+}
 
