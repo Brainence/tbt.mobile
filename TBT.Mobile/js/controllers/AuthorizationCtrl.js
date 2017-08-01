@@ -1,9 +1,9 @@
 
-tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEntry', '$scope', '$rootScope', function(Main, User, ResetTicket, TimeEntry, $scope, $rootScope) {
+tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'TimeEntry', '$scope', '$rootScope', function(Main, User, TimeEntry, $scope, $rootScope) {
     
      //temporary for authorization
-     $scope.username = "vmalanii@brainence.com";
-     $scope.password = "brainence!";
+     $scope.username = "";
+     $scope.password = "";
      $scope.rememberMe = true;
      $scope.selectedProjectValue = '--Select project--';
      $scope.selectedActivityValue = '&nbsp;';
@@ -47,7 +47,8 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
                                         });
                                     }
                                 }
-                            }                             
+                            }             
+                            logIn = true;                 
                             startTimer();
                             window.location.href = '#calendar-page';
                         });
@@ -71,37 +72,31 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
                         currentUser = updatedUser;
                         $rootScope.user = currentUser;
                         window.localStorage.setItem("currentUser", JSON.stringify(currentUser));
-                    
-                        ResetTicket.CreateResetTicket(currentUser.Id).done(function (result) {
-                            if(!!result){
-                                RememberMe = $scope.rememberMe;
-                                window.localStorage.setItem("RememberMe", RememberMe);
-                        
-                                TimeEntry.GetTodayTimeEntries(currentUser.Id).done(function (res) {
-                                    $rootScope.timeEntries = res;
-                                    for(var i =0; i<$rootScope.timeEntries.length; i++)
-                                        $rootScope.timeEntries[i].Duration = $rootScope.timeEntries[i].Duration.substr(0,8);
-                                    $rootScope.$apply();
-                                    var notToday = SelectedDay.getDay() != new Date().getDay() || SelectedDay.getMonth() != new Date().getMonth() || SelectedDay.getFullYear() != new Date().getFullYear();
-                                    if (!notToday)
-                                    {
-                                        for(var i =0; i<$rootScope.timeEntries.length; i++){
-                                            if($rootScope.timeEntries[i].IsRunning){
-                                                $('.timeEntry-duration').removeClass('timeEntry-duration-active');
-                                                $('.timeEntry-duration').each(function( index ) {
-                                                    if(i == index)
-                                                        $(this).addClass('timeEntry-duration-active');
-                                                });
-                                            }
-                                        }
-                                    } 
-                                    window.location.href = '#calendar-page';
-                                });
-                            }
-                            else {
-                                alert('Fail authorization!');
-                            }
-                        }); 
+                        RememberMe = $scope.rememberMe;
+                        window.localStorage.setItem("RememberMe", RememberMe);
+                
+                        TimeEntry.GetTodayTimeEntries(currentUser.Id).done(function (res) {
+                            $rootScope.timeEntries = res;
+                            for(var i =0; i<$rootScope.timeEntries.length; i++)
+                                $rootScope.timeEntries[i].Duration = $rootScope.timeEntries[i].Duration.substr(0,8);
+                            $rootScope.$apply();
+                            var notToday = SelectedDay.getDay() != new Date().getDay() || SelectedDay.getMonth() != new Date().getMonth() || SelectedDay.getFullYear() != new Date().getFullYear();
+                            if (!notToday)
+                            {
+                                for(var i =0; i<$rootScope.timeEntries.length; i++){
+                                    if($rootScope.timeEntries[i].IsRunning){
+                                        $('.timeEntry-duration').removeClass('timeEntry-duration-active');
+                                        $('.timeEntry-duration').each(function( index ) {
+                                            if(i == index)
+                                                $(this).addClass('timeEntry-duration-active');
+                                        });
+                                    }
+                                }
+                            }             
+                            logIn = true;
+                            startTimer();
+                            window.location.href = '#calendar-page';
+                        });
                     });
                 }
                 else {

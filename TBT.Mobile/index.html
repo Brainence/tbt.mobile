@@ -33,7 +33,7 @@
             <div data-role="page" id="authorization-page" ng-controller="AuthorizationCtrl">
                 <div data-role="content" class="authorization-content">
                     <div class="body">
-                        <span>Username </span> <input type="text" ng-model="username"/>
+                        <span>Username </span> <input type="email" ng-model="username"/>
                         <span>Password </span> <input type="password" ng-model="password" />
                         <div class="checkbox"><input type="checkbox" ng-model="rememberMe" value="Remember Me" /><span>Remember me</span></div>
                         <button ng-click="authorization()">Log in</button>
@@ -163,7 +163,6 @@
         <script type="text/javascript" src="js/filters.js"></script>
         <script type="text/javascript" src="js/services/MainService.js"></script>
         <script type="text/javascript" src="js/services/UserService.js"></script>
-        <script type="text/javascript" src="js/services/ResetTicketService.js"></script>
         <script type="text/javascript" src="js/services/TimeEntryService.js"></script>
         <script type="text/javascript" src="js/controllers/MenuCtrl.js"></script>
         <script type="text/javascript" src="js/controllers/AuthorizationCtrl.js"></script>

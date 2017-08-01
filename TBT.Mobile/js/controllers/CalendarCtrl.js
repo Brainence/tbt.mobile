@@ -1,5 +1,5 @@
 
-tbtApp.controller("CalendarCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEntry', '$scope', '$rootScope', '$timeout', function(Main, User, ResetTicket, TimeEntry, $scope, $rootScope, $timeout) {
+tbtApp.controller("CalendarCtrl", [ 'Main', 'User', 'TimeEntry', '$scope', '$rootScope', '$timeout', function(Main, User, TimeEntry, $scope, $rootScope, $timeout) {
     
     var editedTime;
     var editedTimeEntry;
@@ -497,7 +497,7 @@ tbtApp.controller("CalendarCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEntry', 
          if(m==60) { m = 0; h++; }
          $(this).text((h > 9 ? h : "0" + h) + ":" + (m > 9 ? m : "0" + m) + ":" + (s > 9 ? s : "0" + s));
      });
-     setTimeout(startTimer, 1000);
+     if(logIn) setTimeout(startTimer, 1000);
  }
 
 function prevCalendarDate(date){

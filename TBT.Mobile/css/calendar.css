@@ -7,7 +7,7 @@
 .calendar-item {
     text-align: center;
     border: 1px solid #c2422b;
-    width: calc((100vw - 108px)/3) !important;
+    width: calc(100vw / 3 - 36px) !important;
     margin: 0px 4px 0px 0px !important;
 }
 

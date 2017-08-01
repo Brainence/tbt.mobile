@@ -4,3 +4,4 @@ var RememberMe;
 var Password;
 var SelectedDay;
 var tbtApp;
+var logIn;

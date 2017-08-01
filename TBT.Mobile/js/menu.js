@@ -19,5 +19,6 @@ $(document).on("pageinit", "#demo-page", function() {
 
     
 function Logout() {
-    window.localStorage.clear();
+    window.localStorage.clear(); 
+    logIn = false;
 }
