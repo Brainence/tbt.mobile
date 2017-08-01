@@ -9,7 +9,7 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
      $scope.selectedActivityValue = '&nbsp;';
      SelectedDay = new Date();
      init();
-     
+    
      function init(){
          //window.location.href = '#calendar-page';
          //window.localStorage.clear();
@@ -47,8 +47,7 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEnt
                                         });
                                     }
                                 }
-                            } 
-                            
+                            }                             
                             startTimer();
                             window.location.href = '#calendar-page';
                         });

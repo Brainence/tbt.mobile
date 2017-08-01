@@ -36,37 +36,20 @@ tbtApp.filter('filterMonth', function() {
     };
 });
 
-/*tbtApp.filter('filterDayOfWeek', function() {
+tbtApp.filter('filterDate', function() {
     return function(x) {
-        switch (x)
-        {
-            case 0: return "Sunday";
-            case 1: return "Monday";
-            case 2: return "Tuesday";
-            case 3: return "Wednesday";
-            case 4: return "Thursday";
-            case 5: return "Friday";
-            case 6: return "Saturday";
-        }
+        return x.substr(0,10);
     };
 });
 
-tbtApp.filter('filterMonth', function() {
+tbtApp.filter('filterTime', function() {
     return function(x) {
-        switch (x)
-        {
-            case 0: return "January";
-            case 1: return "February";
-            case 2: return "March";
-            case 3: return "April";
-            case 4: return "May";
-            case 5: return "June";
-            case 6: return "July";
-            case 7: return "August";
-            case 8: return "September";
-            case 9: return "October";
-            case 10: return "November";
-            case 11: return "December";
-        }
+        return x.substr(0,8);
     };
-});*/
+});
+
+tbtApp.filter('filterReportingDate', function() {
+    return function(x) {
+        return '' + (x.getDate() < 10 ? '0' : '') + x.getDate() + "." + ((x.getMonth()+1) < 10 ? '0' : '') + (x.getMonth()+1) + "." + x.getFullYear();
+    };
+});

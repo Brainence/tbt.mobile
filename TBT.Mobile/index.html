@@ -11,6 +11,7 @@
         <!--styles-->
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <link rel="stylesheet" type="text/css" href="css/calendar.css" />
+        <link rel="stylesheet" type="text/css" href="css/reporting.css" />
         <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css" />
         <link rel="stylesheet" href="libraries/jquery/jquery.mobile-1.4.5.min.css" />
         <!--styles-->
@@ -44,16 +45,15 @@
             <div data-role="page" id="calendar-page" ng-controller="CalendarCtrl">
                 <div data-role="content">
                     <div class="header">
+                        <a href="#main-menu-panel" class="menu_button"><img src="img/menu.png"/></a>
                         <div class="header-user">
                             <img src="img/user.png"/>
                             <p>{{user.FirstName}} {{user.LastName}}</p>
                         </div>
-                        <img src="img/menu.png"/>
-                        
                     </div>
                     <div class="body">
                         <div id="calendar">
-                            <ul style="display:flex;">
+                            <ul style="display:flex;" ng-swipe-left="swipeCalendarLeft()" ng-swipe-right="swipeCalendarRight()">
                                 <li class="calendar-item" ng-repeat="day in calendar" ng-click="selectDay($index)">
                                     <p>{{day.numb}}</p>
                                     <p>{{day.month | filterMonth}} | {{day.dayOfWeek | filterDayOfWeek}}</p>
@@ -88,22 +88,6 @@
                         </div>
                         
                         <ul class="timeEntry-list nomargin">
-                            <!--<li>
-                                <div class="timeEntry-item" ng-swipe-left="swipeLeft($index)" ng-swipe-right="swipeRight($index)">
-                                    <img src="img/Clock.png"/>
-                                    <div>
-                                        <span class="timeEntry-description">timeEntry.Activity.Project.Name</span>
-                                        <p class="timeEntry-duration">12:43:23</p>
-                                        <p class="timeEntry-comment">fsdfsd fsd dsf sdf sdf sfsd fsdf sf </p>
-                                    </div>
-                                    <div class="edit-button">
-                                        <p>Edit</p>
-                                    </div>
-                                    <div class="delete-button">
-                                        <p>Delete</p>
-                                    </div>
-                                </div>
-                            </li>-->
                             <li ng-repeat="timeEntry in timeEntries">
                                 <div class="timeEntry-item" ng-swipe-left="swipeLeft($index)" ng-swipe-right="swipeRight($index)">
                                     <div class="timeEntry-block" ng-click="TickTime($index)">
@@ -122,30 +106,52 @@
                                     </div>
                                 </div>
                             </li>
-                            <!--<li ng-repeat="timeEntry in timeEntries">
-                                <div class="timeEntry-item">
-                                    <img src="img/Clock.png"/>
-                                    <div>
-                                        <img src="img/plus.png"/>
-                                        <img src="img/edit.png"/>
-                                        <img src="img/delete.png"/>
-                                        <p class="timeEntry-duration">{{timeEntry.Duration}}</p>
-                                        <p class="timeEntry-description">{{timeEntry.Activity.Project.Name}} | {{timeEntry.Activity.Name}}</p>
-                                    </div>
-                                    <div class="edit-button">
-                                        <p>Edit</p>
-                                    </div>
-                                </div>
-                            </li>-->
                         </ul>
                     </div>
                 </div>
             </div>
             
             <!-- Reporting page -->
-            <div data-role="page" id="reporting-page">
+            <div data-role="page" id="reporting-page" ng-controller="ReportingCtrl">
                 <div data-role="content">
-                    
+                    <div class="header">
+                        <a href="#main-menu-panel" class="menu_button"><img src="img/menu.png"/></a>
+                        <div class="header-user">
+                            <img src="img/user.png"/>
+                            <p>{{user.FirstName}} {{user.LastName}}</p>
+                        </div>
+                    </div>
+                    <div class="body">
+                        <div class="date-block">
+                            <p>From:</p>
+                            <div ng-click="openFromCalendar()">
+                                <div id="calendarFromButton">
+                                    <img src="img/calendar_orange.png" id="calendarFrom"/>
+                                    <input type="text" id="calendarFromDate" disabled="disabled"/>
+                                </div>
+                                <p>{{dateFrom | filterReportingDate}}</p>
+                            </div>
+                        </div>
+                        <div class="date-block">
+                            <p>To:</p>
+                            <div ng-click="openToCalendar()">
+                                <div id="calendarToButton">
+                                    <img src="img/calendar_orange.png" id="calendarTo"/>
+                                    <input type="text" id="calendarToDate" disabled="disabled"/>
+                                </div>
+                                <p>{{dateTo | filterReportingDate}}</p>
+                            </div>
+                        </div>
+                        <button ng-click="generateReport()">Generate</button>
+                        <p class="report-duration">Total time: <span>{{reportDuration}}</span></p>
+                        <ul id="listTimeEntries">
+                            <li ng-repeat="tEntry in report" class="report-item">
+                                <p class="timeEntry-description" ><span>{{tEntry.Date | filterDate}}</span><span>{{tEntry.Activity.Name}} | {{tEntry.Activity.Project.Name}}</span></p>
+                                <p class="timeEntry-duration">{{tEntry.Duration | filterTime}}</p>
+                                <p class="timeEntry-comment">{{tEntry.Comment}}</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,12 +159,15 @@
         <script type="text/javascript">
             app.initialize();
         </script>
+        <script type="text/javascript" src="js/menu.js"></script>
         <script type="text/javascript" src="js/filters.js"></script>
         <script type="text/javascript" src="js/services/MainService.js"></script>
         <script type="text/javascript" src="js/services/UserService.js"></script>
         <script type="text/javascript" src="js/services/ResetTicketService.js"></script>
         <script type="text/javascript" src="js/services/TimeEntryService.js"></script>
+        <script type="text/javascript" src="js/controllers/MenuCtrl.js"></script>
         <script type="text/javascript" src="js/controllers/AuthorizationCtrl.js"></script>
         <script type="text/javascript" src="js/controllers/CalendarCtrl.js"></script>
+        <script type="text/javascript" src="js/controllers/ReportingCtrl.js"></script>
     </body>
 </html>

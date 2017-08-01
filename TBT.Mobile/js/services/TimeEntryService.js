@@ -26,6 +26,12 @@ angular.module('TimeEntryService', []).service('TimeEntry', function() {
             async: false
         });
     }
+    
+    this.GetByUser = function(id, dateFrom, dateTo){
+        return $.ajax({
+            url: 'http://192.168.0.42/tbt/api/TimeEntry/GetByUser/' + id + '/' + dateFrom + '/' + dateTo
+        });
+    }
    
     this.ServerDuration = function(timeEntry){
         return $.ajax({

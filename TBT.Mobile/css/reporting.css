@@ -1,0 +1,75 @@
+
+#reporting-page .body {
+    padding: 30px;
+}
+
+.date-block {
+    display: flex;
+    justify-content: space-around;
+}
+
+.date-block>p {
+    width: 25vw;
+    line-height: 1.75em;
+    color: #000;
+}
+
+.date-block>div {
+    display: flex;
+}
+
+.date-block img {
+    max-height: 24px;
+    margin-right: 10px;
+}
+
+.date-block>div>p{
+    width: 28vw;
+    font-size: 1.4em !important;
+    font-weight: 600;
+    line-height: 1.3em;
+}
+
+.report-item {
+    margin: 30px 0px;
+    color: #c2422b;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.report-item p>span {
+    /*font-weight: bold;
+    color: #c2422b;*/
+}
+
+.report-item p {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date-block .ui-input-text {
+    margin: 0px !important;
+    border: none !important;
+    position: relative;
+    top: -20px;
+    max-width: 24px;
+}
+
+
+#calendarFromDate, #calendarToDate {
+    max-width: 24px;
+    position: relative; 
+    z-index: 100000;
+    color: transparent !important;
+}
+
+.report-duration {
+    margin-top: 30px !important;
+    font-size: 1.2em;
+    color: #000;
+}
+
+.report-duration>span {
+    font-weight: bold;
+    color: #c2422b;
+}

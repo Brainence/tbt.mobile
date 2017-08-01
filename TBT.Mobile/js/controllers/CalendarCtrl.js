@@ -45,13 +45,12 @@ tbtApp.controller("CalendarCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEntry', 
             if($("#calendarDate").datepicker("widget").is(":visible")){
                 $("#calendarDate").datepicker( "hide" );
             }
-        },
+        }
     });
     init();
     
     function init(){
         var date = new Date();
-        //$scope.currentDate = {numb: date.getDate(), month: date.getMonth(), year:date.getFullYear(), dayOfWeek: date.getDay()};
         $scope.calendar = [{numb: date.getDate(), month: date.getMonth(), year:date.getFullYear(), dayOfWeek: date.getDay()}];
         $scope.calendar.unshift(prevCalendarDate($scope.calendar[0]));
         $scope.calendar.push(nextCalendarDate($scope.calendar[$scope.calendar.length-1]));
@@ -60,6 +59,86 @@ tbtApp.controller("CalendarCtrl", [ 'Main', 'User', 'ResetTicket', 'TimeEntry', 
                 if(index==1) $(this).addClass('calendar-item-active');
             });
         }, 100);
+    }
+    
+    $scope.swipeCalendarLeft = function(){
+        console.log($scope.calendar);
+        for(var i = 0; i<3; i++) {
+            $scope.calendar.push(nextCalendarDate($scope.calendar[$scope.calendar.length-1]));
+            $scope.calendar.shift(); 
+        }
+        console.log($scope.calendar);
+        
+        SelectedDay.setMonth($scope.calendar[1].month);
+        SelectedDay.setDate($scope.calendar[1].numb);
+        SelectedDay.setFullYear($scope.calendar[1].year);
+        
+        var dateStr = '' + SelectedDay.getFullYear() + ((SelectedDay.getMonth()+1) < 10 ? '0' : '') + (SelectedDay.getMonth()+1) + (SelectedDay.getDate() < 10 ? '0' : '') + SelectedDay.getDate() + 'T000000';
+        TimeEntry.GetTimeEntriesByDate(currentUser.Id,dateStr).done(function (res) {
+            $rootScope.timeEntries = res;
+            for(var i =0; i<$rootScope.timeEntries.length; i++)
+                $rootScope.timeEntries[i].Duration = $rootScope.timeEntries[i].Duration.substr(0,8);
+            $rootScope.$apply();
+            
+            var notToday = SelectedDay.getDay() != new Date().getDay() || SelectedDay.getMonth() != new Date().getMonth() || SelectedDay.getFullYear() != new Date().getFullYear();
+            if (!notToday)
+            {
+                for(var i =0; i<$rootScope.timeEntries.length; i++){
+                    if($rootScope.timeEntries[i].IsRunning){
+                        $('.timeEntry-duration').removeClass('timeEntry-duration-active');
+                        $('.timeEntry-duration').each(function( index ) {
+                            if(i == index)
+                                $(this).addClass('timeEntry-duration-active');
+                        });
+                    }
+                }
+            } 
+        });
+        
+        $timeout(function(){
+            $('.calendar-item').removeClass('calendar-item-active');
+            $('.calendar-item').each(function(index){
+                if(index==1) $(this).addClass('calendar-item-active');
+            });
+        }, 1);
+    }
+    
+    $scope.swipeCalendarRight = function(){
+        for(var i = 0; i<3; i++) $scope.calendar.unshift(prevCalendarDate($scope.calendar[0]));
+        for(var i = 0; i<3; i++) $scope.calendar.pop();        
+        
+        SelectedDay.setMonth($scope.calendar[1].month);
+        SelectedDay.setDate($scope.calendar[1].numb);
+        SelectedDay.setFullYear($scope.calendar[1].year);
+        
+        var dateStr = '' + SelectedDay.getFullYear() + ((SelectedDay.getMonth()+1) < 10 ? '0' : '') + (SelectedDay.getMonth()+1) + (SelectedDay.getDate() < 10 ? '0' : '') + SelectedDay.getDate() + 'T000000';
+        TimeEntry.GetTimeEntriesByDate(currentUser.Id,dateStr).done(function (res) {
+            $rootScope.timeEntries = res;
+            for(var i =0; i<$rootScope.timeEntries.length; i++)
+                $rootScope.timeEntries[i].Duration = $rootScope.timeEntries[i].Duration.substr(0,8);
+            $rootScope.$apply();
+            
+            var notToday = SelectedDay.getDay() != new Date().getDay() || SelectedDay.getMonth() != new Date().getMonth() || SelectedDay.getFullYear() != new Date().getFullYear();
+            if (!notToday)
+            {
+                for(var i =0; i<$rootScope.timeEntries.length; i++){
+                    if($rootScope.timeEntries[i].IsRunning){
+                        $('.timeEntry-duration').removeClass('timeEntry-duration-active');
+                        $('.timeEntry-duration').each(function( index ) {
+                            if(i == index)
+                                $(this).addClass('timeEntry-duration-active');
+                        });
+                    }
+                }
+            } 
+        });
+        
+        $timeout(function(){
+            $('.calendar-item').removeClass('calendar-item-active');
+            $('.calendar-item').each(function(index){
+                if(index==1) $(this).addClass('calendar-item-active');
+            });
+        }, 1);
     }
     
     
@@ -435,6 +514,7 @@ function prevCalendarDate(date){
     prevDate.dayOfWeek--;
     if(prevDate.dayOfWeek == -1)
         prevDate.dayOfWeek = 6;
+    prevDate.$$hashKey++;
     return prevDate;
 }
 
@@ -453,6 +533,7 @@ function nextCalendarDate(date){
     nextDate.dayOfWeek++;
     if(nextDate.dayOfWeek == 7)
         nextDate.dayOfWeek = 0;
+    nextDate.$$hashKey++;
     return nextDate;
 }
     
