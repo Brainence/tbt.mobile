@@ -13,6 +13,7 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'TimeEntry', '$scope', 
      function init(){
          //window.location.href = '#calendar-page';
          //window.localStorage.clear();
+         
          currentUser = JSON.parse(window.localStorage.getItem("currentUser"));
          currentToken = JSON.parse(window.localStorage.getItem("currentToken"));
          RememberMe = JSON.parse(window.localStorage.getItem("RememberMe"));
@@ -60,6 +61,7 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'TimeEntry', '$scope', 
      
      $scope.authorization = function(){
         Main.GetToken($scope.username, $scope.password).done(function (token) {
+            try{
             Main.InitInterceptor();
             currentToken = token;
             window.localStorage.setItem("currentToken", JSON.stringify(currentToken));
@@ -102,7 +104,10 @@ tbtApp.controller("AuthorizationCtrl", [ 'Main', 'User', 'TimeEntry', '$scope', 
                 else {
                     alert('Fail authorization!');
                 }
-            });
+            });}
+            catch(ex){
+                alert(ex.message);
+            }
         });
     }
  }]);

@@ -2,12 +2,12 @@
   "ProjectName": "TBT.Mobile",
   "ProjectGuid": "27a97719-a965-4a11-8f7d-8950b634ba16",
   "projectVersion": 1,
-  "AppIdentifier": "com.telerik.tbtmobile",
-  "DisplayName": "TBT.Mobile",
-  "Author": "",
-  "Description": "TBT.Mobile",
-  "BundleVersion": "1.0",
-  "AndroidVersionCode": "1",
+  "AppIdentifier": "brainence.tbt",
+  "DisplayName": "TimeBookingTool",
+  "Author": "Brainence",
+  "Description": "TimeBookingTool",
+  "BundleVersion": "1.1",
+  "AndroidVersionCode": "2",
   "iOSDeviceFamily": [
     "1",
     "2"
@@ -42,5 +42,9 @@
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
   ],
-  "iOSDeploymentTarget": "6.0"
+  "iOSDeploymentTarget": "6.0",
+  "CorePlugins": [
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-whitelist"
+  ]
 }
